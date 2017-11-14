@@ -2,31 +2,32 @@
 
 using namespace std;
 
-struct Usuario{
+struct Usuarios{
 	string nombre;
 	string apellido;
 	string numDocumento;
 	string sexo;
 	int edad;
-	Usuario *sig;	
+	Usuarios *sig;
 };
 
 class Viajero{
-	Usuario *cab;
+	Usuarios *cab;
 	public:
 		Viajero();
 		void agregar(string,string,string,string,int);
 		void mostrar();
+		Usuarios *buscar(string);//Retorna 1 si se encuentra, -1 en caso contrario.
 	
 	
 };
 
 Viajero::Viajero(){
-	cab==NULL;
+	cab=NULL;
 }
 
 void Viajero::agregar(string nom,string ape,string numDoc,string sexo,int edad){
-	Usuario *p = new Usuario;
+	Usuarios *p = new Usuarios;
 	p->nombre=nom;
 	p->apellido=ape;
 	p->numDocumento=numDoc;
@@ -37,13 +38,22 @@ void Viajero::agregar(string nom,string ape,string numDoc,string sexo,int edad){
 }
 
 void Viajero::mostrar(){
-	Usuario *p = cab;
-
-	
-	while(p){
+	Usuarios *p = cab;
+	while(p!=NULL){
 		cout<<"Nombre: "<<p->nombre<<" Apellido: "<<p->apellido<<" No Doc: "<<p->numDocumento<<" Sexo: "<<p->sexo<<" Edad: "<<p->edad<<endl;
 		p=p->sig;
 	}
+}
+
+Usuarios *Viajero::buscar(string doc){// 1 si ya está registrado, -1 si no lo está
+	Usuarios *q = cab;
+	while(q!=NULL){
+		if(q->numDocumento==doc){
+			return q;
+		}
+		q=q->sig;
+	}
+	return q;
 }
 
 
